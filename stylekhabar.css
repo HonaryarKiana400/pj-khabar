@@ -1,0 +1,26 @@
+.title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.image-container {
+    margin: 20px 0;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.news-text {
+    text-align: justify;
+}
+
+
+.search{
+    margin-right: -1130px;
+}
+
+.dropdown{
+    margin-right: 20px;
+}
