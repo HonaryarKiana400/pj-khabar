@@ -32,16 +32,18 @@ if (!$result) {
         body {
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-image: url('img/newsss.jpg'); /* اضافه کردن عکس پس‌زمینه */
+            background-size: cover; /* تنظیم اندازه عکس برای پوشش کامل صفحه */
+            background-position: center; /* تنظیم موقعیت عکس در مرکز */
+            background-repeat: no-repeat; /* جلوگیری از تکرار عکس */
+            background-attachment: fixed; /* ثابت نگه داشتن عکس هنگام اسکرول */
         }
 
-        .main-content {
-            padding: 20px;
-        }
+
 
         .sidebar {
             padding: 20px;
-            background-color:rgb(67, 78, 89); 
+            background-color: rgba(67, 78, 89, 0.9); /* پس‌زمینه با شفافیت */
             height: 100vh;
             position: fixed;
             right: 0;
@@ -56,7 +58,7 @@ if (!$result) {
         }
 
         .sidebar .nav-link:hover {
-            background-color:rgb(166, 175, 184); 
+            background-color: rgba(166, 175, 184, 0.8); /* تغییر رنگ با شفافیت */
         }
 
         .scrollable-field {
@@ -66,7 +68,7 @@ if (!$result) {
             overflow-y: auto;
             border-radius: 5px;
             border: 1px solid #ddd; 
-             
+            background-color: rgba(255, 255, 255, 0.9); /* پس‌زمینه سفید با شفافیت */
         }
 
         .link-containe {
@@ -113,8 +115,7 @@ if (!$result) {
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-9 main-content">
-          <h2 style="text-align: center;">لیست کاربران</h2>
-
+          <h2 style="text-align:center;color:white;">لیست کاربران</h2>
 
           <form action="adduser.php" method="post" style="margin-right: 431px;margin-left: -352px;">
               <div class="input-group mb-3">
@@ -165,33 +166,28 @@ if (!$result) {
                   <?php } ?>
               </table>
 
-              <a class="link-containe" href="">بازگشت به صفحه اصلی</a>
+              <a class="link-containe" href="index.php">بازگشت به صفحه اصلی</a>
           </div>
+        </div>
 
+        <div class="col-md-3 sidebar">
+            <h1 style="text-align:start;">
+                <i class="bi bi-person"></i> پنل مدیریت
+            </h1>
+            <p style="text-align:start; font-size:22px;">به پنل مدیریت خوش آمدید</p>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <ul class="navbar-nav flex-column" style="gap:181px; font-weight:bold; font-size:20px; margin-right: 76px;">
+                    <li class="nav-ite text-centerm">
+                        <a class="nav-link" href="admin.php">همه اخبار</a>
+                    </li>
 
-          <div class="col-md-3 sidebar">
-              <h1 style="text-align:start;">
-                  <i class="bi bi-person"></i> پنل مدیریت
-              </h1>
-              <p style="text-align:start; font-size:22px;">به پنل مدیریت خوش آمدید</p>
-              <nav class="navbar navbar-expand-lg navbar-light">
-                  <ul class="navbar-nav flex-column" style="gap:181px; font-weight:bold; font-size:20px;     margin-right: 76px;">
-                      <li class="nav-ite text-centerm">
-                          <a class="nav-link" href="#">همه اخبار</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="#">دسته بندی</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="listusers.php">لیست کاربران</a>
-                      </li>
-                  </ul>
-              </nav>
-          </div>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="listusers.php">لیست کاربران</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
       </div> 
     </div> 
 </body>
-
 </html>
-

@@ -1,3 +1,42 @@
+<?php
+// اتصال به دیتابیس
+$host = 'localhost';
+$db   = 'news_system';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+];
+
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (\PDOException $e) {
+    die("خطا در اتصال به دیتابیس: " . $e->getMessage());
+}
+
+// دریافت دسته‌بندی از URL
+$category = isset($_GET['category']) ? $_GET['category'] : 'همه';
+
+// ساخت کوئری بر اساس دسته‌بندی
+if ($category == 'همه') {
+    // اگر دسته‌بندی "همه" باشد، همه اخبار تاییدشده را نمایش بده
+    $stmt = $pdo->query("SELECT * FROM news WHERE confirm = 1");
+} else {
+    // اگر دسته‌بندی مشخص باشد، فقط اخبار آن دسته‌بندی را نمایش بده
+    $stmt = $pdo->prepare("SELECT * FROM news WHERE category = :category AND confirm = 1");
+    $stmt->execute(['category' => $category]);
+}
+
+$confirmed_news = $stmt->fetchAll();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,32 +89,29 @@
                     </form>
                 </div>
                 <div class="dropdown">
-                    <button type="button" class="btn btn-primary dropdown-toggle bttn-all " style="margin-left:20px" data-bs-toggle="dropdown">
-                      اخبار
-                    </button>
 
-                    <ul class="dropdown-menu dropdown-menu-end" style="text-align: end; ">
-                      <li><a class="dropdown-item text-secondary" href="#">سیاسی</a></li>
-                      <li><a class="dropdown-item text-secondary" href="#"> اقتصادی</a></li>
-                      <li><a class="dropdown-item text-secondary" href="#">فرهنگی</a></li>
-                      <li><a class="dropdown-item text-secondary" href="#">علمی</a></li>
-                      <li><a class="dropdown-item text-secondary" href="#">هنری</a></li>
-                      <li><a class="dropdown-item text-secondary" href="#">ورزشی</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">اخبار مهم</a></li>
-                    </ul>
-                </div>
+                <div class="dropdown">
+    <button type="button" class="btn btn-primary dropdown-toggle bttn-all" style="margin-left:20px" data-bs-toggle="dropdown">
+        اخبار
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" style="text-align: end;">
+        <li><a class="dropdown-item text-secondary" href="category_news.php?category=سیاسی">سیاسی</a></li>
+        <li><a class="dropdown-item text-secondary" href="category_news.php?category=اقتصادی">اقتصادی</a></li>
+        <li><a class="dropdown-item text-secondary" href="category_news.php?category=فرهنگی">فرهنگی</a></li>
+        <li><a class="dropdown-item text-secondary" href="category_news.php?category=علمی">علمی</a></li>
+        <li><a class="dropdown-item text-secondary" href="category_news.php?category=هنری">هنری</a></li>
+        <li><a class="dropdown-item text-secondary" href="category_news.php?category=ورزشی">ورزشی</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="category_news.php?category=همه">اخبار مهم</a></li>
+    </ul>
+</div>
             </div>
         </nav>
-
         <!------ end navbar------------->
        <!----------start carousel----------------------------->
         <div class="title"style=" margin-top: 110px;margin-right:35px; text-align:right; font-weight: bold; font-size: 26px;">
             اخبار داغ
         </div>
-        
-
-
         <div class="row akbar-dagh" style="margin:35px 10px">
             <div class="col-md-6" >
             
@@ -118,9 +154,6 @@
                     </div>
                 </div>
             </div>
-
-            <!---------------------------->
-
             <div class="col-md-6">
                 <div id="carouselExampleDark" class="carousel carousel-dark slide " >
                     <div class="carousel-indicators ">
@@ -146,7 +179,6 @@
                       <div class="carousel-item">
                         <img src="img/kargardan.jpg" class="d-block w-100" alt="..." style="    height: 449px;">
                         <div class="carousel-caption d-none d-md-block text-white"  style=" margin-bottom: 50px; padding-left: 140px;">
-                          
                           <p>واکنش کارگردان «خرس» به قاچاق فیلمش</p>
                         </div>
                       </div>
@@ -160,73 +192,69 @@
                       <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-    
             </div>
-
-
-
         </div>
-
         <!--------end carousel--------------------->
 
-        <!--------start daste bandi-------------------------------->
+        
+   
 
-        <div class="title" style=" margin-top: 110px;margin-right:35px; text-align:right; font-weight: bold; font-size: 26px;">
-          دسته بندی 
-        </div>
 
-        <div class="container" style="margin-top: 25px;">
-          <div class="row">
+<!--------start همه خبرها-------------------------------->
+<!--------start همه خبرها-------------------------------->
+<div class="title" style="margin-top: 110px; margin-right: 35px; text-align: right; font-weight: bold; font-size: 26px;">
+    همه خبرها
+</div>
+<div class="container" style="margin-top: 25px;">
+    <div class="row">
+        <?php
+        // اتصال به دیتابیس
+        $host = 'localhost';
+        $db   = 'news_system';
+        $user = 'root';
+        $pass = '';
+        $charset = 'utf8mb4';
+
+        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $options = [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ];
+
+        try {
+            $pdo = new PDO($dsn, $user, $pass, $options);
+        } catch (\PDOException $e) {
+            die("خطا در اتصال به دیتابیس: " . $e->getMessage());
+        }
+
+        // دریافت خبرهای تاییدشده
+        $stmt = $pdo->query("SELECT * FROM news WHERE confirm = 1");
+        $confirmed_news = $stmt->fetchAll();
+
+        foreach ($confirmed_news as $news): ?>
             <div class="col-md-4">
-              <a href="" class="card">
-                <img src="img/siasi.jpg" alt="">
-                <div class="card-title text-white">سیاسی</div>
-              </a>
+                <div class="card" style="position: relative; margin-bottom: 20px;">
+                    <!-- اضافه کردن لینک به صفحه جزئیات خبر -->
+                    <a href="news_detail.php?id=<?php echo $news['id']; ?>">
+                        <img src="<?php echo $news['image']; ?>" alt="<?php echo $news['title']; ?>" style="height: 200px; width: 100%; object-fit: cover;">
+                        <div class="card-category" style="position: absolute; top: 10px; left: 10px; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 5px 10px; border-radius: 5px;">
+                            <?php echo $news['category']; ?>
+                        </div>
+                        <div dir="rtl" class="card-title" style="position: absolute; bottom: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 5px 10px; border-radius: 5px;">
+                            <?php echo $news['title']; ?>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="col-md-4">
-              <a href="" class="card">
-                <img src="img/eghtesadi.jpg" alt="">
-                <div class="card-title text-white">اقتصادی</div>
-              </a>
-            </div>
-            <div class="col-md-4">
-              <a href="" class="card">
-                <img src="img/farhangi.jpg" alt="" style="height: 232px;">
-                <div class="card-title text-white">فرهنگی</div>
-              </a>
-            </div>
-          </div>
-
-
-
-          <div class="row" style="margin-top: 15px; margin-bottom: 20px;">
-            <div class="col-md-4">
-              <a href="" class="card">
-                <img src="img/elmi.jpg" alt="" style="height: 260px;">
-                <div class="card-title text-white">علمی</div>
-              </a>
-            </div>
-            <div class="col-md-4">
-              <a href="" class="card">
-                <img src="img/honary3.jpg" alt="" style="height: 260px;">
-                <div class="card-title text-white">هنری</div>
-              </a>
-            </div>
-            <div class="col-md-4">
-              <a href="" class="card">
-                <img src="img/varzeshi.jpg" alt="" style="height: 258px;">
-                <div class="card-title text-white">ورزشی</div>
-              </a>
-            </div>
-          </div>
-
-
-        </div>
-
-
+        <?php endforeach; ?>
+    </div>
+</div>
+<!--------end همه خبرها--------------------->
+<!--------end همه خبرها--------------------->
         <!--------------footer------------------------>
         
-        <div class="d-flex flex-column min-vh-100">
+        <div class="d-flex flex-column ">
           <div class="container mt-5">
               <!-- محتوای اصلی -->
           </div>
@@ -246,22 +274,14 @@
                                   <i class="bi bi-whatsapp fs-4"></i>
                               </a>
                           </div>
-      
                           <p>تمام حقوق مادی و معنوی به این سایت متعلق می‌باشد و استفاده از مطالب با ذکر منبع بلامانع است</p>
                       </div>
                   </div>
               </div>
           </footer>
       </div>
-      
     </div>
 
-
-        
-
-
-
-  
-
+    
 </body>
 </html>

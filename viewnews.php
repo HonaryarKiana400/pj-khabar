@@ -41,13 +41,12 @@ $news = $stmt->fetchAll();
     <link rel="stylesheet" href="stylee.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* اضافه کردن عکس پس‌زمینه */
         body {
-            background-image: url('img/newsss.jpg'); /* مسیر عکس پس‌زمینه */
-            background-size: cover; /* عکس کل صفحه را پوشش دهد */
-            background-position: center; /* عکس در وسط صفحه قرار گیرد */
-            background-repeat: no-repeat; /* عکس تکرار نشود */
-            background-attachment: fixed; /* عکس ثابت بماند */
+            background-image: url('img/newsss.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .news-item {
@@ -55,7 +54,7 @@ $news = $stmt->fetchAll();
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            background: rgba(246, 250, 255, 0.8); /* پس‌زمینه نیمه شفاف برای خبرها */
+            background: rgba(246, 250, 255, 0.8);
         }
 
         .news-item img {
@@ -66,7 +65,7 @@ $news = $stmt->fetchAll();
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.8); /* پس‌زمینه نیمه شفاف برای محتوا */
+            background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
@@ -75,6 +74,19 @@ $news = $stmt->fetchAll();
         h1 {
             color: rgb(127, 128, 130);
         }
+        .link-containe {
+            bottom: 0;
+            left: 0;
+            position: fixed;
+            margin-bottom: 25px;
+            margin-left: 10px;
+            background-color: #007bff; 
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 10px; 
+            color: white; 
+        }
+
     </style>
 </head>
 <body>
@@ -83,12 +95,16 @@ $news = $stmt->fetchAll();
         <?php foreach ($news as $item): ?>
             <div class="news-item">
                 <h2 style="text-align: right;"><?php echo $item['title']; ?></h2>
+                <p style="text-align: right;"><strong>دسته‌بندی:</strong> <?php echo $item['category']; ?></p>
                 <img src="<?php echo $item['image']; ?>" alt="عکس خبر">
                 <p style="text-align: right;"><?php echo $item['content']; ?></p>
+                <!-- نمایش نام نویسنده -->
+                <p style="text-align: right;"><strong>نویسنده:</strong> <?php echo $item['author']; ?></p>
                 <a href="editnews.php?id=<?php echo $item['id']; ?>" class="btn btn-primary">ویرایش</a>
                 <a href="deletenews.php?id=<?php echo $item['id']; ?>" class="btn btn-danger" onclick="return confirm('آیا مطمئن هستید؟')">حذف</a>
             </div>
         <?php endforeach; ?>
     </div>
+    <a class="link-containe" href="index.php">بازگشت به صفحه اصلی</a>
 </body>
 </html>

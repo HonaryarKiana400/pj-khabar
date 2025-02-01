@@ -84,6 +84,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>ثبت نام</title>
     <link rel="stylesheet" href="stylee.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url('img/newsss.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+    </style>
 </head>
 <body style="background-color: #435165;">
     <div class="card text-center mb-3 mx-auto" style="width: 29rem; margin-top:100px;">
