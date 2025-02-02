@@ -36,7 +36,7 @@ if (!$news) {
 ?>
 
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,6 +56,26 @@ if (!$news) {
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazir-font@2.1.0/dist/font-face.css">
+
+    <style>
+        body {
+            background-image: url('img/newsss.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container{
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 126px;
+            margin-bottom: 18px;
+        }
+    </style>
 </head>
 <body>
     <div class="all">
@@ -92,14 +112,22 @@ if (!$news) {
         <!------ end navbar------------->
 
         <!----------start news detail----------------------------->
-        <div class="container mt-5 pt-5">
+        <div class="container ">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <h1 class="text-right"><?php echo htmlspecialchars($news['title']); ?></h1>
+                    <h1 class="text-right" dir="rtl"><?php echo htmlspecialchars($news['title']); ?></h1>
                     <img src="<?php echo htmlspecialchars($news['image']); ?>" class="img-fluid my-4" alt="<?php echo htmlspecialchars($news['title']); ?>">
-                    <p class="text-right"><?php echo nl2br(htmlspecialchars($news['content'])); ?></p>
-                    <p class="text-right text-muted">نویسنده: <?php echo htmlspecialchars($news['author']); ?></p>
+                    <p class="text-right"dir="rtl"><?php echo nl2br(htmlspecialchars($news['content'])); ?></p>
+                    <p class="text-right text-muted" dir="rtl">نویسنده: <?php echo htmlspecialchars($news['author']); ?></p>
+                    <?php if (!empty($news['تایم'])): ?>
+                    <strong dir="rlt">تاریخ انتشار:</strong> <?php echo $news['تایم']; ?>
+                    <?php endif; ?>
+                    <br>
+                    <br>
                     <a href="index.php" class="btn btn-primary">بازگشت به صفحه اصلی</a>
+                   
+
+                    
                 </div>
             </div>
         </div>
@@ -107,11 +135,10 @@ if (!$news) {
 
         <!--------------footer------------------------>
         <div class="d-flex flex-column ">
-            <div class="container mt-5">
-                <!-- محتوای اصلی -->
+
             </div>
             <footer class="mt-auto">
-                <div class="container">
+        
                     <div class="row justify-content-center">
                         <div class="col-md-6">
                             <p>سایت خبری</p>
@@ -128,10 +155,10 @@ if (!$news) {
                             </div>
                             <p>تمام حقوق مادی و معنوی به این سایت متعلق می‌باشد و استفاده از مطالب با ذکر منبع بلامانع است</p>
                         </div>
-                    </div>
+                
                 </div>
             </footer>
-        </div>
+        
     </div>
 </body>
 </html>

@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// بررسی آیا کاربر وارد سیستم شده است
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login1.php");
     exit;
 }
 
-// اتصال به دیتابیس
+
 $host = 'localhost';
 $db   = 'news_system';
 $user = 'root';
@@ -27,7 +27,7 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
-// دریافت اطلاعات خبر
+
 if (!isset($_GET['id'])) {
     echo "<script>alert('شناسه خبر نامعتبر است.'); window.location.href='admin.php';</script>";
     exit;
@@ -38,27 +38,27 @@ $stmt = $pdo->prepare("SELECT * FROM news WHERE id = ?");
 $stmt->execute([$id]);
 $news = $stmt->fetch();
 
-// اگر خبر وجود نداشت
+
 if (!$news) {
     echo "<script>alert('خبر مورد نظر یافت نشد.'); window.location.href='admin.php';</script>";
     exit;
 }
 
-// اگر فرم ارسال شده باشد
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
     $category = $_POST['category'];
     $content = $_POST['content'];
 
-    // بررسی خالی بودن فیلدها
+
     if (empty($title) || empty($category) || empty($content)) {
         echo "<script>alert('لطفاً همه فیلدها را پر کنید.');</script>";
     } else {
-        // آپلود عکس جدید (اگر وجود دارد)
+
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
             $target_dir = "uploads/";
             if (!is_dir($target_dir)) {
-                mkdir($target_dir, 0777, true); // ایجاد پوشه uploads اگر وجود نداشته باشد
+                mkdir($target_dir, 0777, true); 
             }
             $target_file = $target_dir . basename($_FILES["image"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

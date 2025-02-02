@@ -43,25 +43,30 @@ if (!$result) {
 
         .sidebar {
             padding: 20px;
-            background-color: rgba(67, 78, 89, 0.9); /* پس‌زمینه با شفافیت */
+            background-color: rgba(240, 240, 240, 0.9); /* پس‌زمینه نیمه شفاف */
             height: 100vh;
             position: fixed;
             right: 0;
             top: 0;
-            color: white; 
+            width: 300px; /* عرض سایدبار */
+        }
+
+
+        .sidebar .navbar {
+            padding: 0;
         }
 
         .sidebar .nav-link {
-            color: white; 
             padding: 10px;
-            text-decoration: none; 
+            border-bottom: 1px solid #ccc;
         }
 
         .sidebar .nav-link:hover {
-            background-color: rgba(166, 175, 184, 0.8); /* تغییر رنگ با شفافیت */
+            background-color: #ddd;
         }
 
         .scrollable-field {
+        
             margin-right: 431px;
             margin-left: -352px;
             height: auto; 
@@ -109,6 +114,9 @@ if (!$result) {
         a:hover {
             color: #0056b3; 
         }
+
+
+        
     </style>
 </head>
 <body>
@@ -171,22 +179,22 @@ if (!$result) {
         </div>
 
         <div class="col-md-3 sidebar">
-            <h1 style="text-align:start;">
-                <i class="bi bi-person"></i> پنل مدیریت
-            </h1>
-            <p style="text-align:start; font-size:22px;">به پنل مدیریت خوش آمدید</p>
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <ul class="navbar-nav flex-column" style="gap:181px; font-weight:bold; font-size:20px; margin-right: 76px;">
-                    <li class="nav-ite text-centerm">
-                        <a class="nav-link" href="admin.php">همه اخبار</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="listusers.php">لیست کاربران</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+                <h1 style="text-align: start">
+                    <i class="bi bi-person"></i>
+                    پنل مدیریت
+                </h1>
+                <p style="text-align: start; font-size: 22px;">به پنل مدیریت خوش آمدید</p>
+                <nav class="navbar navbar-expand-lg navbar-light" style="margin-right: 55px; height: 651px; text-align: center; margin-left: 95px;">
+                    <ul class="navbar-nav flex-column" style="gap: 181px; font-weight: bold; font-size: 20px">
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin.php">همه اخبار</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">لیست کاربران</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
       </div> 
     </div> 
 </body>

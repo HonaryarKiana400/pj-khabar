@@ -56,7 +56,6 @@ if (!$news) {
             border-radius: 10px;
             padding: 20px;
         }
-
     </style>
 </head>
 <body style="background-color: #435165;">
@@ -65,10 +64,15 @@ if (!$news) {
             <h5 class="card-title"><?php echo $news['title']; ?></h5>
             <hr>
             <p><strong>دسته‌بندی:</strong> <?php echo $news['category']; ?></p>
-            <p><strong>نویسنده:</strong> <?php echo $news['author']; ?></p>
-           
+            <p>
+                <strong>نویسنده:</strong> <?php echo $news['author']; ?>
+
             <img src="<?php echo $news['image']; ?>" alt="عکس خبر" style="max-width: 100%; height: auto;">
             <p style="text-align: right;"><?php echo $news['content']; ?></p>
+            <?php if (!empty($news['تایم'])): ?>
+                    <br><strong>تاریخ انتشار:</strong> <?php echo $news['تایم']; ?>
+                <?php endif; ?>
+            </p>
             <a href="admin.php" class="btn btn-primary">بازگشت به پنل ادمین</a>
         </div>
     </div>

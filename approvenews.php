@@ -21,16 +21,24 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
 
-    $stmt = $pdo->prepare("UPDATE news SET confirm = 1 WHERE id = :id");
-    $stmt->execute(['id' => $id]);
+    $stmt = $pdo->prepare("UPDATE news SET confirm = 1, تایم = NOW() WHERE id = ?");
+    $stmt->execute([$id]);
 
-    header("Location: admin_panel.php");
-    exit();
+
+    if ($stmt->rowCount() > 0) {
+        echo "خبر با موفقیت تایید شد.";
+    } else {
+        echo "خطا در تایید خبر.";
+    }
 } else {
-    die("شناسه خبر نامعتبر است.");
+    echo "ID خبر نامعتبر است.";
 }
+
+
+header("Refresh: 2; URL=admin.php");
 ?>

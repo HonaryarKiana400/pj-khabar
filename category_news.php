@@ -1,5 +1,5 @@
 <?php
-// اتصال به دیتابیس
+
 $host = 'localhost';
 $db   = 'news_system';
 $user = 'root';
@@ -19,15 +19,15 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
-// دریافت دسته‌بندی از URL
+
 $category = isset($_GET['category']) ? $_GET['category'] : 'همه';
 
-// ساخت کوئری بر اساس دسته‌بندی
+
 if ($category == 'همه') {
-    // اگر دسته‌بندی "همه" باشد، همه اخبار تاییدشده را نمایش بده
+
     $stmt = $pdo->query("SELECT * FROM news WHERE confirm = 1");
 } else {
-    // اگر دسته‌بندی مشخص باشد، فقط اخبار آن دسته‌بندی را نمایش بده
+
     $stmt = $pdo->prepare("SELECT * FROM news WHERE category = :category AND confirm = 1");
     $stmt->execute(['category' => $category]);
 }
@@ -47,6 +47,19 @@ $confirmed_news = $stmt->fetchAll();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazir-font@2.1.0/dist/font-face.css">
+    <style>
+                body {
+            background-image: url('img/newsss.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+
+        
+    </style>
 </head>
 <body>
     <div class="all">
@@ -79,7 +92,7 @@ $confirmed_news = $stmt->fetchAll();
             </div>
         </nav>
 
-        <div class="title" style="margin-top: 110px; margin-right: 35px; text-align: right; font-weight: bold; font-size: 26px;">
+        <div class="title" style="margin-top: 110px; margin-right: 35px; text-align: right; font-weight: bold; font-size: 26px;    color: white;">
             <?php echo ($category == 'همه') ? 'همه خبرها' : "خبرهای دسته‌بندی: $category"; ?>
         </div>
         <div class="container" style="margin-top: 25px;">
@@ -87,7 +100,7 @@ $confirmed_news = $stmt->fetchAll();
                 <?php foreach ($confirmed_news as $news): ?>
                     <div class="col-md-4">
                         <div class="card" style="position: relative; margin-bottom: 20px;">
-                            <!-- اضافه کردن لینک به صفحه جزئیات خبر -->
+                      
                             <a href="news_detail.php?id=<?php echo $news['id']; ?>">
                                 <img src="<?php echo $news['image']; ?>" alt="<?php echo $news['title']; ?>" style="height: 200px; width: 100%; object-fit: cover;">
                                 <div class="card-category" style="position: absolute; top: 10px; left: 10px; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 5px 10px; border-radius: 5px;">
@@ -102,9 +115,8 @@ $confirmed_news = $stmt->fetchAll();
                 <?php endforeach; ?>
             </div>
         </div>
-        <div class="d-flex flex-column ">
-          <div class="container mt-5">
-              <!-- محتوای اصلی -->
+     
+
           </div>
           <footer class="mt-auto">
               <div class="container">
@@ -127,7 +139,6 @@ $confirmed_news = $stmt->fetchAll();
                   </div>
               </div>
           </footer>
-      </div>
-    </div>
+
 </body>
 </html>

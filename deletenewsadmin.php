@@ -21,15 +21,22 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-   
-    $stmt = $pdo->prepare("UPDATE news SET confirm = 0 WHERE id = :id");
+
+    $stmt = $pdo->prepare("DELETE FROM news WHERE id = :id");
     $stmt->execute(['id' => $id]);
 
-  
-    header("Location: admin.php");
+    if ($stmt->rowCount() > 0) {
+        echo "خبر با موفقیت حذف شد.";
+    } else {
+        echo "خطا در حذف خبر یا خبری با این ID وجود ندارد.";
+    }
+
+
+    header("Refresh: 2; URL=admin.php");
     exit();
 } else {
     die("شناسه خبر نامعتبر است.");

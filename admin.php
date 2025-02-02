@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// اتصال به دیتابیس
+
 $host = 'localhost';
 $db   = 'news_system';
 $user = 'root';
@@ -21,7 +21,7 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
-// دریافت همه خبرها
+
 $stmt = $pdo->query("SELECT * FROM news");
 $news = $stmt->fetchAll();
 ?>
@@ -51,17 +51,17 @@ $news = $stmt->fetchAll();
 
         .main-content {
             padding: 20px;
-            margin-right: 300px; /* فاصله از سایدبار */
+            margin-right: 300px; 
         }
 
         .sidebar {
             padding: 20px;
-            background-color: rgba(240, 240, 240, 0.9); /* پس‌زمینه نیمه شفاف */
+            background-color: rgba(240, 240, 240, 0.9); 
             height: 100vh;
             position: fixed;
             right: 0;
             top: 0;
-            width: 300px; /* عرض سایدبار */
+            width: 300px; 
         }
 
         .sidebar .navbar {
@@ -80,10 +80,10 @@ $news = $stmt->fetchAll();
         .scrollable-field {
             height: 80vh;
             overflow-y: auto;
-            padding: 10px;
+            padding: 0;
             border: 1px solid #ccc;
             border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.9); /* پس‌زمینه نیمه شفاف */
+            background-color: rgba(255, 255, 255, 0.9); 
         }
 
         .link-container {
@@ -104,7 +104,8 @@ $news = $stmt->fetchAll();
         }
 
         .table th {
-            background-color: #f8f9fa;
+            background-color: #007bff; 
+            color: white; 
         }
 
         .btn-sm {
@@ -132,13 +133,26 @@ $news = $stmt->fetchAll();
             background-color: #28a745;
             border-color: #28a745;
         }
+
+        .link-containe {
+            bottom: 0;
+            left: 0;
+            position: fixed;
+            margin-bottom: 25px;
+            margin-left: 10px;
+            background-color: #007bff; 
+            text-decoration: none;
+            border-radius: 10px;
+            padding: 10px; 
+            color: white; 
+        }
     </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-9 main-content">
-                <h2 style="text-align: center; padding: 15px;">اطلاعات همه خبرها</h2>
+                <h2 style="text-align: center; padding: 15px; color: white;">اطلاعات همه خبرها</h2>
 
                 <div class="scrollable-field">
                     <table class="table table-bordered">
@@ -146,7 +160,6 @@ $news = $stmt->fetchAll();
                             <tr>
                                 <th>عنوان خبر</th>
                                 <th>دسته‌بندی</th>
-                                
                                 <th>نویسنده</th>
                                 <th>عملیات</th>
                             </tr>
@@ -156,7 +169,6 @@ $news = $stmt->fetchAll();
                                 <tr>
                                     <td><?php echo $item['title']; ?></td>
                                     <td><?php echo $item['category']; ?></td>
-                                
                                     <td><?php echo $item['author']; ?></td>
                                     <td>
                                         <a href="viewadmin.php?id=<?php echo $item['id']; ?>" class="btn btn-info btn-sm">مشاهده</a>
@@ -170,7 +182,7 @@ $news = $stmt->fetchAll();
                     </table>
                 </div>
 
-                <a class="link-container" href="index.php">بازگشت به صفحه اصلی</a>
+                <a class="link-containe" href="index.php">بازگشت به صفحه اصلی</a>
             </div>
             <div class="col-md-3 sidebar">
                 <h1 style="text-align: start">

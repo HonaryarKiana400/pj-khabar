@@ -1,12 +1,4 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login1.php");
-    exit;
-}
-
-
 $host = 'localhost';
 $db   = 'news_system';
 $user = 'root';
@@ -26,10 +18,11 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
+$query = isset($_GET['query']) ? $_GET['query'] : '';
 
-$id = $_GET['id'];
-$stmt = $pdo->prepare("DELETE FROM news WHERE id = ? AND user_id = ?");
-$stmt->execute([$id, $_SESSION['user_id']]);
-
-echo "<script>alert('خبر با موفقیت حذف شد.'); window.location.href='viewnews.php';</script>";
-exit;
+if (!empty($query)) {
+    $stmt = $pdo->prepare("SELECT id, title FROM news WHERE confirm = 1 AND title LIKE :query");
+    $stmt->execute(['query' => '%' . $query . '%']);
+    $results = $stmt->fetchAll();
+    echo json_encode($results);
+}
