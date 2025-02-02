@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// بررسی آیا کاربر وارد سیستم شده است
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login1.php");
     exit;
 }
 
-// اتصال به دیتابیس
+
 $host = 'localhost';
 $db   = 'news_system';
 $user = 'root';
@@ -27,7 +27,7 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
-// دریافت خبرهای کاربر
+
 $user_id = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT * FROM news WHERE user_id = ?");
 $stmt->execute([$user_id]);
@@ -98,7 +98,7 @@ $news = $stmt->fetchAll();
                 <p style="text-align: right;"><strong>دسته‌بندی:</strong> <?php echo $item['category']; ?></p>
                 <img src="<?php echo $item['image']; ?>" alt="عکس خبر">
                 <p style="text-align: right;"><?php echo $item['content']; ?></p>
-                <!-- نمایش نام نویسنده -->
+                
                 <p style="text-align: right;"><strong>نویسنده:</strong> <?php echo $item['author']; ?></p>
                 <a href="editnews.php?id=<?php echo $item['id']; ?>" class="btn btn-primary">ویرایش</a>
                 <a href="deletenews.php?id=<?php echo $item['id']; ?>" class="btn btn-danger" onclick="return confirm('آیا مطمئن هستید؟')">حذف</a>

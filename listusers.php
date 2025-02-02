@@ -32,23 +32,23 @@ if (!$result) {
         body {
             margin: 0;
             padding: 0;
-            background-image: url('img/newsss.jpg'); /* اضافه کردن عکس پس‌زمینه */
-            background-size: cover; /* تنظیم اندازه عکس برای پوشش کامل صفحه */
-            background-position: center; /* تنظیم موقعیت عکس در مرکز */
-            background-repeat: no-repeat; /* جلوگیری از تکرار عکس */
-            background-attachment: fixed; /* ثابت نگه داشتن عکس هنگام اسکرول */
+            background-image: url('img/newsss.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
         }
 
 
 
         .sidebar {
             padding: 20px;
-            background-color: rgba(240, 240, 240, 0.9); /* پس‌زمینه نیمه شفاف */
+            background-color: rgba(240, 240, 240, 0.9); 
             height: 100vh;
             position: fixed;
             right: 0;
             top: 0;
-            width: 300px; /* عرض سایدبار */
+            width: 300px; 
         }
 
 
@@ -73,7 +73,7 @@ if (!$result) {
             overflow-y: auto;
             border-radius: 5px;
             border: 1px solid #ddd; 
-            background-color: rgba(255, 255, 255, 0.9); /* پس‌زمینه سفید با شفافیت */
+            background-color: rgba(255, 255, 255, 0.9); 
         }
 
         .link-containe {

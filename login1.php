@@ -38,16 +38,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['password'] = 'فیلد پسورد نمی‌تواند کمتر از 6 کاراکتر باشد';
     }
 
-    // اگر ورودی‌ها معتبر بودند
+
     if (empty($errors)) {
-        // اتصال به دیتابیس
+ 
         $link = mysqli_connect('localhost:3306', 'root', '', 'roocket');
         if (!$link) {
             echo 'could not connect : ' . mysqli_connect_error();
             exit;
         }
 
-        // بررسی اعتبار کاربر
+        
         $stmt = mysqli_prepare($link, "SELECT * FROM users WHERE namekarbar = ? AND password = ?");
         mysqli_stmt_bind_param($stmt, "ss", $namekarbar, $password);
         mysqli_stmt_execute($stmt);
@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (mysqli_num_rows($result) > 0) {
             $user = mysqli_fetch_assoc($result);
-            $_SESSION['user_id'] = $user['id']; // ذخیره user_id در Session
-            $_SESSION['admin'] = $user['admin']; // ذخیره وضعیت admin در Session
+            $_SESSION['user_id'] = $user['id']; 
+            $_SESSION['admin'] = $user['admin']; 
 
             if ($user['admin'] == 1) {
                 header("Location: admin.php");
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "<script>alert('نام کاربری یا پسورد اشتباه است.');</script>";
         }
         
-        mysqli_close($link); // بستن اتصال به دیتابیس
+        mysqli_close($link); 
     }
 }
 ?>

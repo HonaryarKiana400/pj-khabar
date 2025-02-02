@@ -48,7 +48,7 @@ $confirmed_news = $stmt->fetchAll();
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazir-font@2.1.0/dist/font-face.css">
     <style>
-                body {
+        body {
             background-image: url('img/newsss.jpg');
             background-size: cover;
             background-position: center;

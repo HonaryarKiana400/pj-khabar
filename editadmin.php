@@ -63,12 +63,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $target_file = $target_dir . basename($_FILES["image"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-            // بررسی فرمت عکس
             if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
                 echo "<script>alert('فقط فایل‌های JPG, JPEG, PNG مجاز هستند.');</script>";
             } else {
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                    // بروزرسانی خبر در دیتابیس با عکس جدید
+                   
                     $stmt = $pdo->prepare("UPDATE news SET title = ?, category = ?, content = ?, image = ? WHERE id = ?");
                     $stmt->execute([$title, $category, $content, $target_file, $id]);
                     echo "<script>alert('خبر با موفقیت ویرایش شد.'); window.location.href='admin.php';</script>";
@@ -77,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
         } else {
-            // بروزرسانی خبر بدون تغییر عکس
+         
             $stmt = $pdo->prepare("UPDATE news SET title = ?, category = ?, content = ? WHERE id = ?");
             $stmt->execute([$title, $category, $content, $id]);
             echo "<script>alert('خبر با موفقیت ویرایش شد.'); window.location.href='admin.php';</script>";

@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $esm = request('esm');
     $famil = request('famil');
 
-    // اعتبارسنجی ورودی‌ها
+
     if (is_null($namekarbar)) {
         $errors['namekarbar'] = 'فیلد نام کاربری نمی‌تواند خالی بماند';
     } elseif (!is_valid_name($namekarbar)) {

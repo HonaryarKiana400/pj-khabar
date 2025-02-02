@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// اتصال به دیتابیس
+
 $host = 'localhost';
 $db   = 'news_system';
 $user = 'root';
@@ -21,13 +21,13 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
-// دریافت اطلاعات خبر
+
 $id = $_GET['id'];
 $stmt = $pdo->prepare("SELECT * FROM news WHERE id = ?");
 $stmt->execute([$id]);
 $news = $stmt->fetch();
 
-// اگر خبر وجود نداشت
+
 if (!$news) {
     echo "<script>alert('خبر مورد نظر یافت نشد.'); window.location.href='admin.php';</script>";
     exit;

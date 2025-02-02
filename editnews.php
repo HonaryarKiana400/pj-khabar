@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// بررسی آیا کاربر وارد سیستم شده است
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login1.php");
     exit;
 }
 
-// اتصال به دیتابیس
+
 $host = 'localhost';
 $db   = 'news_system';
 $user = 'root';
@@ -27,37 +27,38 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
-// دریافت اطلاعات خبر
+
 $id = $_GET['id'];
 $stmt = $pdo->prepare("SELECT * FROM news WHERE id = ? AND user_id = ?");
 $stmt->execute([$id, $_SESSION['user_id']]);
 $news = $stmt->fetch();
 
-// اگر خبر وجود نداشت
+
 if (!$news) {
     echo "<script>alert('شما اجازه ویرایش این خبر را ندارید.'); window.location.href='viewnews.php';</script>";
     exit;
 }
 
-// اگر فرم ارسال شده باشد
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $title = $_POST['title'] ?? $news['title']; // اگر خالی بود، مقدار قبلی استفاده شود
-    $category = $_POST['category'] ?? $news['category']; // اگر خالی بود، مقدار قبلی استفاده شود
-    $content = $_POST['content'] ?? $news['content']; // اگر خالی بود، مقدار قبلی استفاده شود
-    $author = $_POST['author'] ?? $news['author']; // اگر خالی بود، مقدار قبلی استفاده شود
 
-    // آپلود عکس جدید (اگر وجود دارد)
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $title = $_POST['title'] ?? $news['title']; 
+    $category = $_POST['category'] ?? $news['category']; 
+    $content = $_POST['content'] ?? $news['content']; 
+    $author = $_POST['author'] ?? $news['author']; 
+
+ 
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-        // بررسی فرمت عکس
+
         if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
             echo "<script>alert('فقط فایل‌های JPG, JPEG, PNG مجاز هستند.');</script>";
         } else {
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                // بروزرسانی خبر در دیتابیس
+         
+                
                 $stmt = $pdo->prepare("UPDATE news SET title = ?, category = ?, content = ?, image = ?, author = ? WHERE id = ?");
                 $stmt->execute([$title, $category, $content, $target_file, $author, $id]);
                 echo "<script>alert('خبر با موفقیت ویرایش شد.'); window.location.href='viewnews.php';</script>";
@@ -66,7 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     } else {
-        // بروزرسانی خبر بدون تغییر عکس
+   
+        
         $stmt = $pdo->prepare("UPDATE news SET title = ?, category = ?, content = ?, author = ? WHERE id = ?");
         $stmt->execute([$title, $category, $content, $author, $id]);
         echo "<script>alert('خبر با موفقیت ویرایش شد.'); window.location.href='viewnews.php';</script>";

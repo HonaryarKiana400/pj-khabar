@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// بررسی آیا کاربر وارد سیستم شده است
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login1.php");
     exit;
 }
 
-// اتصال به دیتابیس
+
 $host = 'localhost';
 $db   = 'news_system';
 $user = 'root';
@@ -27,34 +27,33 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
-// اگر فرم ارسال شده باشد
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
-    $category = $_POST['category']; // دریافت دسته‌بندی
+    $category = $_POST['category']; 
     $content = $_POST['content'];
     $author = $_POST['author'];
     $user_id = $_SESSION['user_id'];
     
 
-    // بررسی خالی بودن فیلدها
     if (empty($title) || empty($category) || empty($content) || empty($_FILES['image']['name'])) {
         echo "<script>alert('لطفاً همه فیلدها را پر کنید.');</script>";
     } else {
-        // آپلود عکس
+      
         if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
             $target_dir = "uploads/";
             if (!is_dir($target_dir)) {
-                mkdir($target_dir, 0777, true); // ایجاد پوشه uploads اگر وجود نداشته باشد
+                mkdir($target_dir, 0777, true); 
             }
             $target_file = $target_dir . basename($_FILES["image"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-            // بررسی فرمت عکس
+           
             if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
                 echo "<script>alert('فقط فایل‌های JPG, JPEG, PNG مجاز هستند.');</script>";
             } else {
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                    // درج خبر در دیتابیس
+                
                     $stmt = $pdo->prepare("INSERT INTO news (title, category, content, image, user_id,author) VALUES (?, ?, ?, ?, ?,?)");
                     $stmt->execute([$title, $category, $content, $target_file, $user_id,$author]);
                     echo "<script>alert('خبر با موفقیت ثبت شد.'); window.location.href='viewnews.php';</script>";
@@ -140,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <script>
-        // تابع برای بررسی خالی بودن فیلدها
+      
         function validateForm() {
             var title = document.getElementById('title').value;
             var category = document.getElementById('category').value;

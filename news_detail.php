@@ -1,5 +1,5 @@
 <?php
-// اتصال به دیتابیس
+
 $host = 'localhost';
 $db   = 'news_system';
 $user = 'root';
@@ -19,13 +19,13 @@ try {
     die("خطا در اتصال به دیتابیس: " . $e->getMessage());
 }
 
-// دریافت id خبر از URL
+
 if (!isset($_GET['id'])) {
     die("خطا: شناسه خبر مشخص نشده است.");
 }
 $news_id = $_GET['id'];
 
-// دریافت اطلاعات خبر از دیتابیس
+
 $stmt = $pdo->prepare("SELECT * FROM news WHERE id = :id");
 $stmt->execute(['id' => $news_id]);
 $news = $stmt->fetch();
